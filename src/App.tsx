@@ -35,6 +35,8 @@ import {
   CheckCircle2,
   AlertCircle
 } from 'lucide-react';
+import React from 'react';
+import { getCurrentWindow } from '@tauri-apps/api/window';
 
 import { Track, Playlist, Album, EqualizerPreset } from './types';
 import { openLocalMediaFiles, parseFileToTrack, formatBytes } from './utils/filePicker';
@@ -60,6 +62,57 @@ export function formatTime(seconds: number): string {
 // INITIAL MOCK TRACKS WITH SYNTH FALLBACKS
 // ==========================================
 
+const appWindow = getCurrentWindow();
+
+function TitleBar() {
+  return (
+    /* data-tauri-drag-region lets users click & drag the window */
+    <div 
+      data-tauri-drag-region 
+      className="flex justify-between items-center h-8 bg-zinc-950 px-3 select-none border-b border-zinc-800/50"
+    >
+      <span className="text-xs text-zinc-400 font-medium pointer-events-none">
+        Sleek Media Player
+      </span>
+      
+      {/* Window Controls */}
+      <div className="flex items-center space-x-1">
+        <button 
+          onClick={() => appWindow.minimize()} 
+          className="p-1 px-2 text-zinc-400 hover:bg-zinc-800 hover:text-white rounded text-xs transition-colors"
+        >
+          &#8722;
+        </button>
+        <button 
+          onClick={() => appWindow.toggleMaximize()} 
+          className="p-1 px-2 text-zinc-400 hover:bg-zinc-800 hover:text-white rounded text-xs transition-colors"
+        >
+          &#9633;
+        </button>
+        <button 
+          onClick={() => appWindow.close()} 
+          className="p-1 px-2 text-zinc-400 hover:bg-red-600 hover:text-white rounded text-xs transition-colors"
+        >
+          &#10005;
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <div className="h-screen flex flex-col bg-zinc-900 text-white overflow-hidden">
+      {/* Render TitleBar at the top of your layout */}
+      <TitleBar />
+
+      {/* Main App Content Area */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Sidebar & Media Content Go Here */}
+      </div>
+    </div>
+  );
+}
 const INITIAL_TRACKS: Track[] = [
   {
     id: 'track-1',
