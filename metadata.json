@@ -1,0 +1,6 @@
+{
+  "name": "Windows Media Player",
+  "description": "A sleek, dark-mode Windows media player featuring the Immersive UI theme with dynamic ambient atmospheric glow, hero playback view, lossless audio explorer, spectrum visualizer, and complete media playback controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
